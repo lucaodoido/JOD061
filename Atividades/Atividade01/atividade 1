@@ -1,0 +1,199 @@
+Diagnosticar a conexão de Internet utilizando comandos do sistema operacional.
+1)
+Levantar informações sobre IP, máscara de rede, gateway e servidor DNS do host.
+
+C:\WINDOWS\system32>ipconfig /all
+
+
+Adaptador Ethernet VirtualBox Host-Only Network:
+
+   Sufixo DNS específico de conexão. . . . . . :
+   Descrição . . . . . . . . . . . . . . . . . : VirtualBox Host-Only Ethernet Adapter
+   Endereço Físico . . . . . . . . . . . . . . : 0A-00-27-00-00-15
+   DHCP Habilitado . . . . . . . . . . . . . . : Não
+   Configuração Automática Habilitada. . . . . : Sim
+   Endereço IPv6 de link local . . . . . . . . : fe80::c1c3:b0:eb1e:9589%21(Preferencial)
+   Endereço IPv4. . . . . . . .  . . . . . . . : 192.168.56.1(Preferencial)
+   Máscara de Sub-rede . . . . . . . . . . . . : 255.255.255.0
+   Gateway Padrão. . . . . . . . . . . . . . . :
+   IAID de DHCPv6. . . . . . . . . . . . . . . : 906625063
+   DUID de Cliente DHCPv6. . . . . . . . . . . : 00-01-00-01-26-03-3F-91-00-1A-3F-B6-65-75
+   Servidores DNS. . . . . . . . . . . . . . . : fec0:0:0:ffff::1%1
+                                                 fec0:0:0:ffff::2%1
+                                                 fec0:0:0:ffff::3%1
+   NetBIOS em Tcpip. . . . . . . . . . . . . . : Habilitado
+
+
+
+
+
+
+
+
+
+
+
+
+
+2)
+Verificar tempo de reposta e perda de pacotes entre host e roteador WiFi considerando uma distância onde o sinal é fraco.
+(ok)
+C:\Users\lucas alves>
+
+  ping 192.168.0.1
+
+Disparando 192.168.0.1 com 32 bytes de dados:
+Resposta de 192.168.0.1: bytes=32 tempo=3ms TTL=64
+Esgotado o tempo limite do pedido.
+Resposta de 192.168.0.1: bytes=32 tempo=4ms TTL=64
+Resposta de 192.168.0.1: bytes=32 tempo=4ms TTL=64
+
+Estatísticas do Ping para 192.168.0.1:
+    Pacotes: Enviados = 4, Recebidos = 3, Perdidos = 1 (25% de
+             perda),
+Aproximar um número redondo de vezes em milissegundos:
+    Mínimo = 3ms, Máximo = 4ms, Média = 3ms
+
+
+Verificar a resolução de nomes para os hosts www.iesb.br e intranet.iesb.br.
+
+
+C:\Users\lucas alves>nslookup  iesb.br
+Servidor:  UnKnown
+Address:  192.168.0.1
+
+Não é resposta autoritativa:
+Nome:    iesb.br
+Address:  54.174.194.96
+
+
+C:\Users\lucas alves>nslookup  intranet.iesb.br.
+Servidor:  UnKnown
+Address:  192.168.0.1
+
+Não é resposta autoritativa:
+Nome:    intranet.iesb.br
+Address:  186.251.61.197
+
+
+
+
+
+
+3)
+Verificar rotas para os hosts www.iesb.br e intranet.iesb.br.
+C:\Users\lucas alves>
+
+
+
+
+Rastreando a rota para iesb.br [54.174.194.96]
+com no máximo 30 saltos:
+
+  1     1 ms     2 ms     1 ms  192.168.0.1
+  2     3 ms     4 ms     3 ms  10.255.255.106
+  3     3 ms     3 ms     3 ms  45.4.187.105.static.bsbtecnologia.com.br [45.4.187.105]
+  4     6 ms     5 ms     2 ms  45.4.187.69.static.bsbtecnologia.com.br [45.4.187.69]
+  5     3 ms     4 ms     5 ms  8.243.39.229
+  6     *        *        *     Esgotado o tempo limite do pedido.
+  7   138 ms   137 ms   137 ms  4.68.39.6
+  8     *        *        *     Esgotado o tempo limite do pedido.
+  9     *        *        *     Esgotado o tempo limite do pedido.
+ 10     *        *        *     Esgotado o tempo limite do pedido.
+ 11     *        *        *     Esgotado o tempo limite do pedido.
+ 12     *        *        *     Esgotado o tempo limite do pedido.
+ 13     *        *        *     Esgotado o tempo limite do pedido.
+ 14   146 ms   145 ms   145 ms  150.222.241.181
+ 15     *        *        *     Esgotado o tempo limite do pedido.
+ 16     *        *        *     Esgotado o tempo limite do pedido.
+ 17     *        *        *     Esgotado o tempo limite do pedido.
+ 18     *        *        *     Esgotado o tempo limite do pedido.
+ 19     *        *        *     Esgotado o tempo limite do pedido.
+ 20     *        *        *     Esgotado o tempo limite do pedido.
+ 21     *        *        *     Esgotado o tempo limite do pedido.
+ 22     *        *        *     Esgotado o tempo limite do pedido.
+ 23     *        *        *     Esgotado o tempo limite do pedido.
+ 24     *        *        *     Esgotado o tempo limite do pedido.
+ 25   145 ms   142 ms   151 ms  52.93.28.208
+ 26     *        *        *     Esgotado o tempo limite do pedido.
+ 27     *        *        *     Esgotado o tempo limite do pedido.
+ 28     *        *        *     Esgotado o tempo limite do pedido.
+ 29     *        *        *     Esgotado o tempo limite do pedido.
+ 30     *        *        *     Esgotado o tempo limite do pedido.
+
+C:\Users\lucas alves>tracert intranet.iesb.br
+
+Rastreando a rota para intranet.iesb.br [186.251.61.197]
+com no máximo 30 saltos:
+
+  1     1 ms     1 ms     1 ms  192.168.0.1
+  2     3 ms     5 ms     4 ms  10.255.255.106
+  3     4 ms     3 ms     4 ms  45.4.187.105.static.bsbtecnologia.com.br [45.4.187.105]
+  4    20 ms     3 ms     5 ms  45.4.187.69.static.bsbtecnologia.com.br [45.4.187.69]
+  5    14 ms    20 ms    28 ms  8.243.39.229
+  6    30 ms    22 ms    40 ms  ae-2-3601.edge1.SaoPaulo1.Level3.net [4.69.214.250]
+  7    27 ms    29 ms    27 ms
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+4)
+Verificar as conexões estabelecidas pelo host nos protocolos TCP e UDP.
+
+
+a)C:\Users\lucas alves>netstat
+
+Conexões ativas
+
+  Proto  Endereço local         Endereço externo       Estado
+  TCP    127.0.0.1:49673        ultramediaburner:57034  ESTABLISHED
+  TCP    127.0.0.1:49673        ultramediaburner:58183  ESTABLISHED
+  TCP    127.0.0.1:49673        ultramediaburner:58371  ESTABLISHED
+  TCP    127.0.0.1:49673        ultramediaburner:58466  ESTABLISHED
+  TCP    127.0.0.1:49673        ultramediaburner:59027  ESTABLISHED
+  TCP    127.0.0.1:49673        ultramediaburner:59033  ESTABLISHED
+  TCP    127.0.0.1:49673        ultramediaburner:59190  ESTABLISHED
+  TCP    127.0.0.1:57034        ultramediaburner:49673  ESTABLISHED
+  TCP    127.0.0.1:58183        ultramediaburner:49673  ESTABLISHED
+  TCP    127.0.0.1:58371        ultramediaburner:49673  ESTABLISHED
+  TCP    127.0.0.1:58466        ultramediaburner:49673  ESTABLISHED
+  TCP    127.0.0.1:59027        ultramediaburner:49673  ESTABLISHED
+  TCP    127.0.0.1:59033        ultramediaburner:49673  ESTABLISHED
+  TCP    127.0.0.1:59190        ultramediaburner:49673  ESTABLISHED
+  TCP    192.168.0.108:58896    52.177.166.224:https   ESTABLISHED
+  TCP    192.168.0.108:58898    ec2-52-12-8-165:https  ESTABLISHED
+  TCP    192.168.0.108:58911    172.217.192.188:5228   ESTABLISHED
+  TCP    192.168.0.108:59003    server-13-32-80-44:https  ESTABLISHED
+  TCP    192.168.0.108:59168    lb-140-82-114-25-iad:https  ESTABLISHED
+  TCP    192.168.0.108:59197    lb-140-82-113-26-iad:https  ESTABLISHED
+  TCP    192.168.0.108:59239    gru06s26-in-f4:https   ESTABLISHED
+  TCP    192.168.0.108:59240    38.113.165.110:https   TIME_WAIT
+  TCP    192.168.0.108:59241    38.113.165.110:https   TIME_WAIT
+  TCP    192.168.0.108:59242    38.113.165.149:https   TIME_WAIT
+  TCP    192.168.0.108:59245    ec2-13-228-178-181:http  TIME_WAIT
+  TCP    192.168.0.108:59246    gru06s34-in-f3:https   ESTABLISHED
+  TCP    192.168.0.108:59247    38.113.165.110:https   TIME_WAIT
+
+
+
+ b) netstat -s -p udp
+
+Estatísticas de UDP para IPv4
+
+  Datagramas recebidos    = 648466
+  Nenhuma porta           = 411288
+  Erros de recebimento    = 4483
+  Datagramas enviados     = 343595
