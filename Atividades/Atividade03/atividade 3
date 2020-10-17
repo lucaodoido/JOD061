@@ -1,0 +1,111 @@
+using System;
+
+using System.Net;
+
+using System.Net.Sockets;
+
+using System.Text;
+
+
+
+namespace _02_Ponto2ponto
+
+{
+
+    class Program
+
+    {
+
+
+
+         const  int porta = 7000;
+
+
+
+         const string ip =  "10.0.2.255";
+
+
+
+
+
+
+
+        static void Main(string[] args)
+
+        {
+
+            
+
+            UdpClient cliente = new UdpClient();
+
+            Console.Write("Conectando ao servidor... ");
+
+
+
+            try
+
+            {
+
+                cliente.Connect(ip, porta);
+
+                Console.WriteLine("OK!");
+
+            }
+
+            catch (Exception)
+
+            {
+
+                Console.WriteLine("Falhou!");
+
+            }
+
+
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            IPEndPoint endPoint = new IPEndPoint(IPAddress.Any, 0);
+
+
+
+            UdpClient par =new UdpClient(porta);
+
+            Console.WriteLine("Saia usando , CTRL + C");
+
+            while(true){
+
+                byte[] bytesRecebidos = par.Receive(ref endPoint);
+
+                Console.WriteLine("Mensagem recebida: {0}", Encoding.ASCII.GetString(bytesRecebidos));
+
+            
+
+            }
+
+            
+
+
+
+            
+
+            Console.WriteLine("Desconectado!");
+
+            cliente.Close();
+
+            
+
+        }
+
+    }
+
+}
