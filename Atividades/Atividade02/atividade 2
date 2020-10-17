@@ -1,0 +1,102 @@
+ using System;
+using System.Net;
+using System.Net.Sockets;
+using System.IO;
+using System.Threading;
+using System.Collections;
+ 
+ 
+ 
+ 
+ 
+ 
+        
+        
+        
+        
+        
+        
+class ChatServidor
+    {
+    
+    
+ private IPAddress enderecoIP;
+        private TcpClient tcpCliente;
+    
+    
+    
+    
+    public static void EnviaMensagem(string Origem, string Mensagem)
+        {
+            StreamWriter swSenderSender;
+
+            
+            e = new StatusChangedEventArgs(Origem + " disse : " + Mensagem);
+            OnStatusChanged(e);
+
+            
+            TcpClient[] tcpClientes = new TcpClient[ChatServidor.htUsuarios.Count];
+            
+            ChatServidor.htUsuarios.Values.CopyTo(tcpClientes, 0);
+           
+            for (int i = 0; i < tcpClientes.Length; i++)
+            {
+                try
+                {
+                    
+                    if (Mensagem.Trim() == "" || tcpClientes[i] == null)
+                    {
+                        continue;
+                    }
+                    
+                    swSenderSender = new StreamWriter(tcpClientes[i].GetStream());
+                    swSenderSender.WriteLine(Origem + " disse: " + Mensagem);
+                    swSenderSender.Flush();
+                    swSenderSender = null;
+                }
+                catch 
+                {
+                    RemoveUsuario(tcpClientes[i]);
+                }
+           while ((strResposta = srReceptor.ReadLine()) != "")
+                {
+                    // Se for inválido remove-o
+                    if (strResposta == null)
+                    {
+                        ChatServidor.RemoveUsuario(tcpCliente);
+                    }
+                    else
+                    {
+                        // envia a mensagem para todos os outros usuários
+                        ChatServidor.EnviaMensagem(usuarioAtual, strResposta);
+                    }
+                }
+            }
+            catch
+            {
+                // Se houve um problema com este usuário desconecta-o
+                ChatServidor.RemoveUsuario(tcpCliente);
+            }
+        }
+           
+           public static void IncluiUsuario(TcpClient tcpUsuario, string strUsername)
+        {
+            
+            ChatServidor.htUsuarios.Add(strUsername, tcpUsuario);
+            ChatServidor.htConexoes.Add(tcpUsuario, strUsername);
+
+            
+            EnviaMensagemAdmin(htConexoes[tcpUsuario] + " entrou..");
+            
+            
+            
+            }
+           
+        }
+           
+      } 
+           
+           
+           
+           }
+        }
